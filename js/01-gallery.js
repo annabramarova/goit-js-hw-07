@@ -20,21 +20,27 @@ function createGalleryMarkup(items) {
 
 galleryContainer.insertAdjacentHTML('beforeend', galleryMarkUp);
 
-galleryContainer.addEventListener('click', e => {
-	e.preventDefault();
+galleryContainer.addEventListener('click', onImgClick);
+
+function onImgClick (e) {
+    e.preventDefault();
+    
 	if (e.target.nodeName !== 'IMG') {
-		return
-	}
+        return;
+    }
+    
 	const selectedImage = e.target.dataset.source;
 
-	const instance = basicLightbox.create(`<img src="${selectedImage}" width="800" height="600">
-`)
-
-	instance.show()
+    const instance = basicLightbox.create(`<img src="${selectedImage}" width="800" height="600">`);
+    instance.show();
     
-	galleryContainer.addEventListener('keydown', e => {
-		if (e.key === 'Escape') {
-			instance.close()
+    galleryContainer.addEventListener('keydown', onEscPress);
+
+    function onEscPress(e) {
+		if (e.code === 'Escape') {
+        instance.close();
+        galleryContainer.removeEventListener("keydown", onEscPress);   
 		}
-	})
-});
+    }
+}
+
