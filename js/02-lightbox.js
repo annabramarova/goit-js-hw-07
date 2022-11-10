@@ -11,7 +11,6 @@ function createGalleryMarkup(items) {
         <img
         class="gallery__image"
         src="${preview}"
-        title = "${description}"
         alt="${description}"/>
         </a>
         </li>`;
@@ -21,5 +20,6 @@ function createGalleryMarkup(items) {
 galleryContainer.insertAdjacentHTML('beforeend', galleryMarkUp);
 
 new SimpleLightbox('.gallery a', {
-	captionDelay: 250
+    captionDelay: 250,
+    captionsData: "alt",
 })
